@@ -1,20 +1,78 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import * as React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Daily from "./page/DailyCalc/Daily";
+import Newcalc from "./page/NewCalc/Newcalc";
+import Oldcalc from "./page/OldCalc/v3/Oldcalc";
+function MyTabBar({ state, descriptors, navigation }) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flexDirection: "row", backgroundColor: "white" }}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: "tabPress",
+            target: route.key,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name);
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: "tabLongPress",
+            target: route.key,
+          });
+        };
+
+        return (
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={{
+              flex: 1,
+              height: 60,
+              margin: 5,
+              borderRadius: 15,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: isFocused ? "lightgreen" : "white",
+            }}
+          >
+            <Text style={{ fontSize: 15 }}>{label}</Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
+        <Tab.Screen name="Daily Calculation" component={Daily} />
+        <Tab.Screen name="New Calculation" component={Newcalc} />
+        <Tab.Screen name="Old Calculation" component={Oldcalc} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
