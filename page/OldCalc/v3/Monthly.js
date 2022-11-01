@@ -38,13 +38,17 @@ export default function Monthly(props) {
   return (
     <>
       <View style={styles.contenttableheader}>
-        <Text style={{ ...styles.tablecontenttext, flex: 2 }}>{sl}</Text>
-        <Text style={styles.tablecontenttext}>{props.loandisbursedate}</Text>
+        <Text style={{ ...styles.tablecontenttext, flex: 3 }}>{sl}</Text>
+        <Text style={{ ...styles.tablecontenttext, flex: 4 }}>
+          {props.loandisbursedate}
+        </Text>
         <TextInput
           style={styles.tablecontentinput}
           onChangeText={setCdate3}
-          value={cdate3}
-        />
+          keyboardType="numeric"
+        >
+          {cdate3}
+        </TextInput>
 
         <Text style={styles.tablecontenttext}>{Math.ceil(recoverable3)}</Text>
         <Text style={styles.tablecontenttext}>{Math.ceil(principle3)}</Text>
@@ -79,17 +83,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderWidth: 0.3,
     fontSize: 12,
-    paddingHorizontal: 10,
+    paddingHorizontal: 2,
     textAlignVertical: "center",
   },
   tablecontentinput: {
     height: 20,
-    flex: 7,
+    flex: 4,
     textTransform: "capitalize",
     textAlign: "center",
     borderWidth: 0.3,
     fontSize: 12,
-    paddingHorizontal: 10,
+    paddingHorizontal: 2,
     textAlignVertical: "center",
     backgroundColor: "white",
     color: "black",

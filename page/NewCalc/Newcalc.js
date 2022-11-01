@@ -6,9 +6,10 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
-  TouchableHighlight,
+  TouchableOpacity,
 } from "react-native";
 import Monthly from "./Monthly";
+import Calculator from "../Calculator";
 
 export default function Newcalc() {
   const [loandisbursedate, setLoandisbursedate] = useState(0);
@@ -37,9 +38,9 @@ export default function Newcalc() {
   };
 
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       <View style={styles.header}>
-        <Text style={styles.htext}>PassBook</Text>
+        <Text style={{ fontSize: 20 }}>PassBook</Text>
       </View>
       <View>
         <View style={styles.tableheader}>
@@ -51,12 +52,14 @@ export default function Newcalc() {
         <View style={styles.tableheader}>
           <TextInput
             style={styles.inputheader}
+            keyboardType="numeric"
             onChangeText={(number) => setLoandisbursedate(Number(number))}
           >
             {loandisbursedate}
           </TextInput>
           <TextInput
             style={styles.inputheader}
+            keyboardType="numeric"
             onChangeText={(number) => setInterestrate(Number(number))}
           >
             {interestrate}
@@ -64,6 +67,7 @@ export default function Newcalc() {
 
           <TextInput
             style={styles.inputheader}
+            keyboardType="numeric"
             onChangeText={(number) => setRecoverable(Number(number))}
           >
             {recoverable}
@@ -71,6 +75,7 @@ export default function Newcalc() {
 
           <TextInput
             style={styles.inputheader}
+            keyboardType="numeric"
             onChangeText={(number) => setopeningOutstanding(Number(number))}
           >
             {openingoutstanding}
@@ -81,9 +86,13 @@ export default function Newcalc() {
       {openingoutstanding > 0 ? (
         <>
           <View style={styles.contenttableheader}>
-            <Text style={{ ...styles.tableheadertext, flex: 2.1 }}>#</Text>
-            <Text style={styles.tableheadertext}>recoverable date</Text>
-            <Text style={styles.tableheadertext}>collection date</Text>
+            <Text style={{ ...styles.tableheadertext, flex: 1.85 }}>#</Text>
+            <Text style={{ ...styles.tableheadertext, flex: 2.35 }}>
+              recoverable date
+            </Text>
+            <Text style={{ ...styles.tableheadertext, flex: 2.4 }}>
+              collection date
+            </Text>
             <Text style={styles.tableheadertext}>recoverable amount</Text>
             <Text style={styles.tableheadertext}>principle</Text>
             <Text style={styles.tableheadertext}>service charge</Text>
@@ -91,7 +100,7 @@ export default function Newcalc() {
           </View>
 
           {data.map((x) => (
-            <ScrollView style={{ height: 240 }}>
+            <ScrollView style={{ height: 350 }}>
               <Monthly
                 sl={Number(0)}
                 loandisbursedate={x.loandisbursedate}
@@ -111,21 +120,22 @@ export default function Newcalc() {
           marginVertical: 10,
         }}
       >
-        <TouchableHighlight onPress={datasender}>
+        <TouchableOpacity onPress={datasender}>
           <Text style={styles.generate}>Calculate</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={genehandle}>
-          <Text style={{ ...styles.generate, backgroundColor: "lightgreen" }}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={genehandle}>
+          <Text style={{ ...styles.generate, backgroundColor: "lightblue" }}>
             Auto Fill
           </Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={resethandle}>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={resethandle}>
           <Text style={{ ...styles.generate, backgroundColor: "tomato" }}>
             Reset
           </Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
-    </View>
+      <Calculator />
+    </ScrollView>
   );
 }
 
@@ -138,7 +148,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     textTransform: "capitalize",
-    backgroundColor: "lightblue",
+    backgroundColor: "lightgreen",
     width: 100,
     height: 30,
     borderRadius: 5,
@@ -148,7 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    height: 40,
+    height: 30,
     backgroundColor: "lightgreen",
     justifyContent: "center",
     alignItems: "center",
@@ -157,13 +167,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   tableheadertext: {
-    height: 30,
+    height: 45,
     flex: 4,
     textTransform: "capitalize",
     textAlign: "center",
     borderWidth: 0.3,
-    fontSize: 11,
-    fontWeight: "bold",
+    fontSize: 9,
+
     textAlignVertical: "center",
   },
   tablecontenttext: {
@@ -194,7 +204,7 @@ const styles = StyleSheet.create({
   },
   tablerow: {
     flexDirection: "row",
-    paddingHorizontal: 4,
+
     justifyContent: "flex-start",
   },
   inputheader: {
@@ -203,7 +213,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     height: 30,
     borderWidth: 0.3,
-    paddingHorizontal: 10,
+
     textTransform: "capitalize",
     backgroundColor: "white",
   },
@@ -212,9 +222,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     height: 40,
-    fontWeight: "bold",
+    fontSize: 12,
     borderWidth: 0.3,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     textTransform: "capitalize",
   },
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Daily from "./page/DailyCalc/Daily";
@@ -8,6 +8,7 @@ import Oldcalc from "./page/OldCalc/v3/Oldcalc";
 function MyTabBar({ state, descriptors, navigation }) {
   return (
     <View style={{ flexDirection: "row", backgroundColor: "white" }}>
+      <StatusBar backgroundColor="lightgreen" />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -47,15 +48,16 @@ function MyTabBar({ state, descriptors, navigation }) {
             onLongPress={onLongPress}
             style={{
               flex: 1,
-              height: 60,
+              height: 40,
               margin: 5,
-              borderRadius: 15,
+              marginBottom: 30,
+              borderRadius: 25,
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: isFocused ? "lightgreen" : "white",
             }}
           >
-            <Text style={{ fontSize: 15 }}>{label}</Text>
+            <Text style={{ fontSize: 12 }}>{label}</Text>
           </TouchableOpacity>
         );
       })}
@@ -67,7 +69,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer style={{ backgroundColor: "lightgreen" }}>
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
         <Tab.Screen name="Daily Calculation" component={Daily} />
         <Tab.Screen name="New Calculation" component={Newcalc} />

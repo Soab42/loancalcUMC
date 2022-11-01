@@ -50,8 +50,12 @@ function Daily() {
         principal,
         lastoutstanding,
       },
-    ]),
-      setOutstanding(lastoutstanding);
+    ]);
+  };
+  const genehandle = () => {
+    setRate(24);
+    setOutstanding(100000);
+    setRecoverable(9500);
   };
   const handleResetTask = () => {
     setRate("");
@@ -60,6 +64,7 @@ function Daily() {
     setOutstanding("");
     setRecoverable("");
   };
+
   return (
     <View>
       <ScrollView style={styles.main}>
@@ -102,12 +107,13 @@ function Daily() {
             <Text style={styles.lebel}>Interest Rate</Text>
             <TextInput
               style={styles.input}
-              value={rate}
               placeholder={"Interest Rate"}
               keyboardType="numeric"
               cursorColor="lightgreen"
               onChangeText={(text) => setRate(text)}
-            />
+            >
+              {rate}
+            </TextInput>
             <Text style={styles.lebel}>Recoverable Amount</Text>
             <TextInput
               style={styles.input}
@@ -121,7 +127,14 @@ function Daily() {
 
             <View style={styles.add}>
               <TouchableOpacity onPress={() => handleAddTask()}>
-                <Text style={styles.submit}>Submit</Text>
+                <Text style={styles.calculate}>Calculate</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={genehandle}>
+                <Text
+                  style={{ ...styles.calculate, backgroundColor: "lightblue" }}
+                >
+                  Auto Fill
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleResetTask()}>
                 <Text style={styles.reset}>Reset</Text>
@@ -186,20 +199,23 @@ function Daily() {
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "rgba(0,255,0,0.15)",
+    paddingBottom: 20,
   },
   lebel: {
     marginLeft: 10,
+    fontWeight: "Bold",
   },
   resulttitle: {
     flex: 3,
     height: 30,
-    paddingLeft: 5,
+    paddingLeft: 10,
     textAlignVertical: "center",
   },
   resulcontent: {
     textAlign: "center",
+    textAlignVertical: "center",
     flex: 2,
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "bold",
     textAlignVertical: "center",
     backgroundColor: "pink",
@@ -212,47 +228,47 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    height: 40,
+    height: 30,
     backgroundColor: "lightgreen",
     justifyContent: "center",
     alignItems: "center",
   },
   htext: {
-    fontSize: 30,
+    fontSize: 20,
   },
   form: {
     padding: 10,
     justifyContent: "center",
   },
   add: {
-    height: 40,
     marginHorizontal: 5,
     marginTop: 10,
     borderRadius: 20,
     display: "flex",
     flexDirection: "row",
+    textAlignVertical: "center",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  submit: {
+  calculate: {
     color: "black",
     backgroundColor: "lightgreen",
     borderRadius: 2,
-    fontSize: 18,
-    width: 80,
-    textTransform: "uppercase",
+    fontSize: 14,
+    width: 100,
+    textAlignVertical: "center",
+    textTransform: "capitalize",
     height: 30,
-    paddingTop: 5,
     textAlign: "center",
   },
   reset: {
     color: "black",
-    backgroundColor: "orange",
+    backgroundColor: "tomato",
     borderRadius: 2,
-    textTransform: "uppercase",
-    fontSize: 18,
-    paddingTop: 5,
-    width: 80,
+    textTransform: "capitalize",
+    fontSize: 14,
+    textAlignVertical: "center",
+    width: 100,
     textAlign: "center",
     height: 30,
   },
@@ -274,7 +290,7 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgray",
   },
   servicecharge: {
-    padding: 20,
+    padding: 10,
   },
   servicechargetext: {
     backgroundColor: "lightgreen",
