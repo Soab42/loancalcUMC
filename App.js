@@ -15,53 +15,18 @@ import Newcalc from "./page/NewCalc/Newcalc";
 import Oldcalc from "./page/OldCalc/v3/Oldcalc";
 import Calculator from "./page/Calculator";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-function MyTabBar({ state, descriptors, navigation }) {
-  const [calcstatus, setCalcstatus] = useState(false);
-  const calchandle = () => {
-    !calcstatus ? setCalcstatus(true) : setCalcstatus(false);
-  };
-  console.log(descriptors);
-  return (
-    <View style={{ flexDirection: "row", backgroundColor: "white" }}>
-      <StatusBar backgroundColor="lightgreen" barStyle="dark-content" />
-      <Text
-        style={{
-          height: 50,
-          width: 50,
-          position: "absolute",
-          top: -60,
-          left: 10,
-        }}
-      >
-        <TouchableOpacity onPress={calchandle}>
-          <Text style={{}}>
-            <Icon name="calculator-variant-outline" size={45} />
-          </Text>
-        </TouchableOpacity>
-      </Text>
-      <Text
-        style={{
-          position: "absolute",
-          backgroundColor: "rgba(155,165,185,.7)",
-          padding: 10,
-          borderRadius: 25,
-          top: -350,
-          left: !calcstatus ? -500 : 35,
-        }}
-      >
-        <Calculator />
-      </Text>
-    </View>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [calcstatus, setCalcstatus] = useState(false);
+  const calchandle = () => {
+    !calcstatus ? setCalcstatus(true) : setCalcstatus(false);
+  };
   return (
     <NavigationContainer style={{ backgroundColor: "lightgreen" }}>
       <StatusBar
-        barStyle={"light-content"}
+        barStyle={"dark-content"}
         backgroundColor="lightgreen"
         // translucent
       />
@@ -80,8 +45,8 @@ export default function App() {
           tabBarStyle: { height: 50 },
           headerShown: false,
           tabBarHideOnKeyboard: true,
-          tabBarActiveTintColor: "black",
-          tabBarInactiveTintColor: "pink",
+          tabBarActiveTintColor: "tomato",
+          tabBarInactiveTintColor: "black",
           tabBarInactiveBackgroundColor: "lightgreen",
           tabBarItemStyle: { backgroundColor: "lightgreen" },
         }}
@@ -101,9 +66,11 @@ export default function App() {
           name="new"
           component={Newcalc}
           options={{
-            title: "New",
+            title: "PassBook",
             tabBarIcon: ({ color }) => (
-              <Icon name="alpha-n" size={40} color={color} />
+              <>
+                <Icon name="alpha-p" size={40} color={color} />
+              </>
             ),
           }}
         />
@@ -119,9 +86,33 @@ export default function App() {
           }}
         /> */}
       </Tab.Navigator>
-      <TouchableOpacity style={{ position: "absolute", bottom: 100 }}>
-        <Icon name="calculator" size={40} />
-      </TouchableOpacity>
+      <Text
+        style={{
+          height: 50,
+          width: 50,
+          position: "absolute",
+          bottom: 50,
+          left: 10,
+        }}
+      >
+        <TouchableOpacity onPress={calchandle}>
+          <Text style={{}}>
+            <Icon name="calculator-variant-outline" size={45} />
+          </Text>
+        </TouchableOpacity>
+      </Text>
+      <Text
+        style={{
+          position: "absolute",
+          backgroundColor: "rgba(155,165,185,.7)",
+          padding: 10,
+          borderRadius: 25,
+          bottom: 100,
+          left: !calcstatus ? -500 : 35,
+        }}
+      >
+        <Calculator />
+      </Text>
     </NavigationContainer>
   );
 }

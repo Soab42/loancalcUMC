@@ -14,22 +14,27 @@ import moment from "moment";
 
 export default function Newcalc() {
   const [interestrate, setInterestrate] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [openingoutstanding, setopeningOutstanding] = useState(0);
   const [recoverable, setRecoverable] = useState(0);
   const [data, setData] = useState([]);
   const [date, setDate] = useState(new Date());
 
   const datasender = () => {
-    setData([{ date, interestrate, openingoutstanding, recoverable }]);
+    setData([
+      { date, interestrate, openingoutstanding, recoverable, duration },
+    ]);
   };
   const genehandle = () => {
     setInterestrate(24);
+    setDuration(12);
     setRecoverable(9500);
     setopeningOutstanding(100000);
   };
   const resethandle = () => {
     setInterestrate(0);
     setRecoverable(0);
+    setDuration(0);
     setopeningOutstanding(0);
     setData([]);
   };
@@ -55,6 +60,7 @@ export default function Newcalc() {
         <View style={styles.tableheader}>
           <Text style={styles.inputheadertop}>Disburse Date</Text>
           <Text style={styles.inputheadertop}>interest Rate</Text>
+          <Text style={styles.inputheadertop}>Loan Duration</Text>
           <Text style={styles.inputheadertop}>recoverable amount</Text>
           <Text style={styles.inputheadertop}>Opening Outstanding</Text>
         </View>
@@ -68,6 +74,13 @@ export default function Newcalc() {
             onChangeText={(number) => setInterestrate(Number(number))}
           >
             {interestrate}
+          </TextInput>
+          <TextInput
+            style={styles.inputheader}
+            keyboardType="numeric"
+            onChangeText={(number) => setDuration(Number(number))}
+          >
+            {duration}
           </TextInput>
 
           <TextInput
@@ -109,6 +122,7 @@ export default function Newcalc() {
                 sl={Number(0)}
                 date={new Date(x.date).setDate(new Date(x.date).getDate())}
                 interestrate={x.interestrate}
+                duration={x.duration}
                 recoverable={x.recoverable}
                 openingoutstanding={x.openingoutstanding}
               />

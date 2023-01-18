@@ -47,20 +47,21 @@ export default function Calculator() {
           style={{
             height: 40,
             borderRadius: 25,
+            fontSize: 30,
             backgroundColor: "lightblue",
             width: 300,
             marginBottom: 10,
             textAlignVertical: "center",
-            textAlign: "left",
-            paddingLeft: 20,
+            textAlign: "center",
           }}
         >
-          Result: {result}
+          {result}
         </Text>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
+            gap: 2,
           }}
         >
           <TouchableOpacity style={{ width: 150 }} onPress={calculate}>
@@ -70,7 +71,7 @@ export default function Calculator() {
                 borderRadius: 25,
                 width: 100,
                 backgroundColor: "lightgreen",
-                width: 150,
+                width: 140,
                 textAlign: "center",
                 textAlignVertical: "center",
               }}
@@ -84,7 +85,7 @@ export default function Calculator() {
                 height: 40,
                 borderRadius: 25,
                 backgroundColor: "tomato",
-                width: 150,
+                width: 140,
                 textAlign: "center",
                 textAlignVertical: "center",
               }}

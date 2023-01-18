@@ -26,9 +26,8 @@ export default function Monthly(props) {
       setServicecharge3(
         props.openingoutstanding * day * (props.interestrate / 36500)
       );
-      recoverable3 < props.openingoutstanding
-        ? setRecoverable3(props.recoverable)
-        : setRecoverable3(props.openingoutstanding + servicecharge3);
+      (0 > props.openingoutstanding || props.sl === props.duration - 1) &&
+        setRecoverable3(props.openingoutstanding + servicecharge3);
 
       setPrinciple3(recoverable3 - servicecharge3);
       setOutstanding3(props.openingoutstanding - principle3);
@@ -36,16 +35,8 @@ export default function Monthly(props) {
       setSl(props.sl + 1);
     }
     getdata();
-  }, [
-    date,
-    servicecharge3,
-    principle3,
-    recoverable3,
-    props.openingoutstanding,
-    props.date,
-    props.recoverable,
-    props.interestrate,
-  ]);
+  }, [date, servicecharge3, principle3, recoverable3, props]);
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
@@ -88,6 +79,7 @@ export default function Monthly(props) {
             <Monthly
               sl={sl}
               date={date}
+              duration={props.duration}
               interestrate={props.interestrate}
               recoverable={props.recoverable}
               openingoutstanding={outstanding3}
