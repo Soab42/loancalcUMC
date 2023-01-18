@@ -7,19 +7,26 @@ export default function Monthly(props) {
   const [principle3, setPrinciple3] = useState(0);
   const [servicecharge3, setServicecharge3] = useState(0);
   const [outstanding3, setOutstanding3] = useState(0);
-  const [recoverable3, setRecoverable3] = useState(0);
-  const [sl, setSl] = useState();
-  const [date, setDate] = useState(props.date);
-
+  const [recoverable3, setRecoverable3] = useState(props.recoverable);
+  const [sl, setSl] = useState(0);
+  const [date, setDate] = useState(
+    moment(
+      new Date(props.date).setDate(
+        new Date(props.date).getDate() + moment(props.date).daysInMonth()
+      )
+    ).format("YYYY-MM-DD")
+  );
+  const [day, setDay] = useState(0);
   useEffect(() => {
     async function getdata() {
       const day =
-        moment(date).diff(props.date, "days") + moment(date).daysInMonth();
+        (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000);
 
+      setDay(day);
       setServicecharge3(
-        props.openingoutstanding * day * (props.interestrate / 36000)
+        props.openingoutstanding * day * (props.interestrate / 36500)
       );
-      props.recoverable < props.openingoutstanding
+      recoverable3 < props.openingoutstanding
         ? setRecoverable3(props.recoverable)
         : setRecoverable3(props.openingoutstanding + servicecharge3);
 
@@ -55,14 +62,20 @@ export default function Monthly(props) {
         <Text style={{ ...styles.tablecontenttext, flex: 3, flexShrink: 1 }}>
           {sl}
         </Text>
-        <Text style={{ ...styles.tablecontenttext }}>
-          {moment(props.date).format("DD-MM-YY")}
-        </Text>
 
         <Text onPress={showMode} style={styles.tablecontenttext}>
           {moment(date).format("DD-MM-YY")}
         </Text>
-        <Text style={styles.tablecontenttext}>{Math.ceil(recoverable3)}</Text>
+        <Text style={{ ...styles.tablecontenttext, flex: 3 }}>
+          {day.toFixed(0)}
+        </Text>
+        <TextInput
+          style={styles.tablecontenttext}
+          keyboardType="numeric"
+          onChangeText={(number) => setRecoverable3(Number(number))}
+        >
+          {Math.ceil(recoverable3)}
+        </TextInput>
         <Text style={styles.tablecontenttext}>{Math.ceil(principle3)}</Text>
         <Text style={styles.tablecontenttext}>
           {Math.round(servicecharge3)}
@@ -74,9 +87,7 @@ export default function Monthly(props) {
           {outstanding3 > 0 ? (
             <Monthly
               sl={sl}
-              date={new Date(date).setDate(
-                new Date(date).getDate() + moment(date).daysInMonth()
-              )}
+              date={date}
               interestrate={props.interestrate}
               recoverable={props.recoverable}
               openingoutstanding={outstanding3}

@@ -23,7 +23,7 @@ function Daily() {
   const [date2, setDate2] = useState(new Date());
   useEffect(() => {
     setDay(moment(date2).diff(date, "days"));
-    setservicecharge(outstanding * day * (rate / 36000));
+    setservicecharge(outstanding * day * (rate / 36500));
     recoverable < outstanding
       ? setRecoverable(recoverable)
       : setRecoverable(outstanding + servicecharge);

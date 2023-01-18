@@ -49,7 +49,7 @@ export default function Newcalc() {
   return (
     <ScrollView style={styles.main}>
       <View style={styles.header}>
-        <Text style={{ fontSize: 20 }}>PassBook</Text>
+        <Text style={{ fontSize: 20 }}>PassBook Calculation</Text>
       </View>
       <View>
         <View style={styles.tableheader}>
@@ -92,8 +92,11 @@ export default function Newcalc() {
         <>
           <View style={styles.contenttableheader}>
             <Text style={{ ...styles.tableheadertext, flex: 3.25 }}>#</Text>
-            <Text style={{ ...styles.tableheadertext }}>recoverable date</Text>
+
             <Text style={{ ...styles.tableheadertext }}>collection date</Text>
+            <Text style={{ ...styles.tableheadertext, flex: 3.25 }}>
+              collection Day
+            </Text>
             <Text style={styles.tableheadertext}>recoverable amount</Text>
             <Text style={styles.tableheadertext}>principle</Text>
             <Text style={styles.tableheadertext}>service charge</Text>
@@ -104,9 +107,7 @@ export default function Newcalc() {
             <ScrollView style={{ height: 350 }}>
               <Monthly
                 sl={Number(0)}
-                date={new Date(x.date).setDate(
-                  new Date(x.date).getDate() + moment(x.date).daysInMonth()
-                )}
+                date={new Date(x.date).setDate(new Date(x.date).getDate())}
                 interestrate={x.interestrate}
                 recoverable={x.recoverable}
                 openingoutstanding={x.openingoutstanding}
