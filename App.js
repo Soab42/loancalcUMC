@@ -15,6 +15,7 @@ import Newcalc from "./page/NewCalc/Newcalc";
 import Oldcalc from "./page/OldCalc/v3/Oldcalc";
 import Calculator from "./page/Calculator";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Web from "./page/Web";
 
 const Tab = createBottomTabNavigator();
 
@@ -75,16 +76,16 @@ export default function App() {
           }}
         />
 
-        {/* <Tab.Screen
+        <Tab.Screen
           name="Old"
-          component={Oldcalc}
+          component={Web}
           options={{
-            title: "Old",
+            title: "Web",
             tabBarIcon: ({ color }) => (
-              <Icon name="alpha-o" color={color} size={40} />
+              <Icon name="alpha-w" color={color} size={40} />
             ),
           }}
-        /> */}
+        />
       </Tab.Navigator>
       <Text
         style={{

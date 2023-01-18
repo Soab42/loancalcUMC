@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import moment from "moment";
+
 function Daily() {
   const [outstanding, setOutstanding] = useState(0);
   const [rate, setRate] = useState(0);
