@@ -12,7 +12,7 @@ export default function Calculator() {
     setResult();
   };
   return (
-    <View style={{ height: 200, width: 300, alignSelf: "center" }}>
+    <View style={{ height: 240, width: 300, alignSelf: "center" }}>
       <View>
         <Text
           style={{
@@ -57,6 +57,75 @@ export default function Calculator() {
         >
           {result}
         </Text>
+        <View
+          style={{
+            height: 40,
+            paddingVertical: 5,
+            borderRadius: 25,
+            backgroundColor: "lightblue",
+            width: 300,
+            marginBottom: 10,
+
+            display: "flex",
+            textAlign: "center",
+            flexDirection: "row",
+            paddingHorizontal: 5,
+            justifyContent: "space-between",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              width: 70,
+              backgroundColor: "rgba(50,50,50,.2)",
+              borderRadius: 50,
+            }}
+            onPress={() => setdata(data + "+")}
+          >
+            <Text>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              width: 70,
+              backgroundColor: "rgba(50,50,50,.2)",
+              borderRadius: 50,
+            }}
+            onPress={() => setdata(data + "-")}
+          >
+            <Text>-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              width: 70,
+              backgroundColor: "rgba(50,50,50,.2)",
+              borderRadius: 50,
+            }}
+            onPress={() => setdata(data + "*")}
+          >
+            <Text>*</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              width: 70,
+              backgroundColor: "rgba(50,50,50,.2)",
+              borderRadius: 50,
+            }}
+            onPress={() => setdata(data + "/")}
+          >
+            <Text>/</Text>
+          </TouchableOpacity>
+        </View>
         <View
           style={{
             flexDirection: "row",
