@@ -120,7 +120,7 @@ export default function Newcalc() {
             <ScrollView style={{ height: 350 }}>
               <Monthly
                 sl={Number(0)}
-                date={new Date(x.date).setDate(new Date(x.date).getDate())}
+                date={x.date}
                 interestrate={x.interestrate}
                 duration={x.duration}
                 recoverable={x.recoverable}

@@ -19,12 +19,13 @@ export default function Monthly(props) {
   const [day, setDay] = useState(0);
   useEffect(() => {
     async function getdata() {
-      const day =
-        (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000);
-
-      setDay(day);
+      setDay(
+        Math.ceil(
+          (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000)
+        )
+      );
       setServicecharge3(
-        props.openingoutstanding * day * (props.interestrate / 36500)
+        Math.ceil(props.openingoutstanding * day * (props.interestrate / 36500))
       );
       (0 > props.openingoutstanding || props.sl === props.duration - 1) &&
         setRecoverable3(props.openingoutstanding + servicecharge3);
@@ -35,7 +36,7 @@ export default function Monthly(props) {
       setSl(props.sl + 1);
     }
     getdata();
-  }, [date, servicecharge3, principle3, recoverable3, props]);
+  }, [date, servicecharge3, principle3, recoverable3, props, day]);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -57,9 +58,7 @@ export default function Monthly(props) {
         <Text onPress={showMode} style={styles.tablecontenttext}>
           {moment(date).format("DD-MM-YY")}
         </Text>
-        <Text style={{ ...styles.tablecontenttext, flex: 3 }}>
-          {day.toFixed(0)}
-        </Text>
+        <Text style={{ ...styles.tablecontenttext, flex: 3 }}>{day}</Text>
         <TextInput
           style={styles.tablecontenttext}
           keyboardType="numeric"
